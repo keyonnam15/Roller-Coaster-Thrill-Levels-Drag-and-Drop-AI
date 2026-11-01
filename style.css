@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --coaster-navy: #101820;
+    --coaster-blue: #2D4059;
+    --coaster-container-bg: #22304A;
+    --coaster-gold: #FFD23F;
+    --coaster-orange: #FF7F11;
+    --coaster-red: #E63946;
+    --coaster-green: #2ECC71;
+  }
+
+  body {
+    font-family: "Trebuchet MS", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #101820 0%, #1a2636 50%, #2D4059 100%);
+    color: #FFFFFF;
+    min-height: 100vh;
+  }
+
+  h1, .coaster-title {
+    font-family: "Impact", "Oswald", "Trebuchet MS", sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+/* Authentic Roller Coaster Themed Classes */
+.coaster-car-item {
+  list-style-type: none;
+  min-height: 38px;
+  background-color: #FF7F11;
+  border: 2px solid #FFFFFF;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  cursor: grab;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  user-select: none;
+}
+
+.coaster-car-item:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5), 0 0 12px rgba(255, 210, 63, 0.4);
+}
+
+.coaster-car-item:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+/* User's exact CSS feedback classes */
+.coaster-car-item.correctAnswer,
+#dhtmlgoodies_dragDropContainer ul li.correctAnswer {
+  background-color: #2ECC71 !important;
+  border-color: #A3E635 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4) !important;
+}
+
+.coaster-car-item.wrongAnswer,
+#dhtmlgoodies_dragDropContainer ul li.wrongAnswer {
+  background-color: #E63946 !important;
+  border-color: #FECDD3 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.4) !important;
+}
+
+/* Destination indicator slot */
+.coaster-drop-indicator {
+  border: 2px dashed #FFD23F !important;
+  background-color: rgba(45, 64, 89, 0.7) !important;
+  border-radius: 12px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFD23F;
+  font-size: 13px;
+  font-weight: 600;
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: #FFD23F; opacity: 0.9; }
+  50% { border-color: #FFA500; opacity: 0.6; }
+}
+
+/* Track background subtle lines */
+.coaster-tracks-bg {
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 210, 63, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;

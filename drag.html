@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roller Coaster Thrill Levels - Interactive Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================================
+       ROLLER COASTER THRILL LEVELS - EXACT SCREEN THEME
+       ======================================================== */
+    :root {
+      --bg-dark: #101820;
+      --bg-surface: #22304A;
+      --bg-card: #2D4059;
+      --gold: #FFD23F;
+      --orange: #FF7F11;
+      --crimson: #E63946;
+      --green: #2ECC71;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #101820 0%, #1a2636 50%, #2D4059 100%);
+      color: #FFFFFF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .font-display {
+      font-family: 'Oswald', 'Impact', sans-serif;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    /* Top Navigation Bar */
+    header {
+      background-color: rgba(16, 24, 32, 0.95);
+      border-bottom: 2px solid var(--gold);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #101820;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      color: #94A3B8;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button.btn {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button.btn-gold {
+      background: var(--gold);
+      color: #101820;
+      border-color: var(--gold);
+    }
+
+    button.btn-gold:hover {
+      background: #ffdc66;
+    }
+
+    button.btn-dark {
+      background: var(--bg-card);
+      color: #FFF;
+    }
+
+    button.btn-dark:hover {
+      background: #3b4f73;
+    }
+
+    /* Hero Banner */
+    .hero {
+      position: relative;
+      background: #101820;
+      border-bottom: 2px solid rgba(255, 210, 63, 0.5);
+      padding: 30px 24px;
+      overflow: hidden;
+    }
+
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255, 127, 17, 0.15), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      max-width: 650px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .hero-text h1 {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 2px 2px 4px #000;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: #CBD5E1;
+      line-height: 1.5;
+    }
+
+    .hero-text p strong {
+      color: var(--gold);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Scoreboard */
+    .scoreboard {
+      background: var(--bg-surface);
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-label {
+      font-size: 10px;
+      color: #94A3B8;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .score-value {
+      font-family: monospace;
+      font-size: 22px;
+      font-weight: 900;
+      color: #FFF;
+    }
+
+    .score-correct {
+      color: var(--green);
+    }
+
+    /* Main Board Layout */
+    main {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Queue Container */
+    .queue-section {
+      background: rgba(34, 48, 74, 0.85);
+      border: 2px solid rgba(255, 210, 63, 0.6);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
+
+    .queue-section.drag-over {
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(255, 210, 63, 0.4);
+    }
+
+    .queue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 210, 63, 0.25);
+    }
+
+    .queue-header h2 {
+      font-size: 20px;
+      color: var(--gold);
+    }
+
+    .queue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    /* Roller Coaster Card */
+    .coaster-card {
+      background: var(--orange);
+      border: 2px solid #FFFFFF;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+      transition: all 0.18s ease;
+      position: relative;
+    }
+
+    .coaster-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.5), 0 0 10px rgba(255, 210, 63, 0.4);
+      border-color: var(--gold);
+    }
+
+    .coaster-card:active {
+      cursor: grabbing;
+      transform: scale(0.98);
+    }
+
+    .coaster-card.correctAnswer {
+      background: var(--green) !important;
+      border-color: #A3E635 !important;
+    }
+
+    .coaster-card.wrongAnswer {
+      background: var(--crimson) !important;
+      border-color: #FECDD3 !important;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .card-meta {
+      font-size: 9px;
+      font-family: monospace;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFF;
+      line-height: 1.25;
+      margin-top: 2px;
+    }
+
+    .card-park {
+      font-size: 11px;
+      color: rgba(255,255,255,0.9);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .info-btn {
+      background: rgba(0,0,0,0.25);
+      border: none;
+      color: var(--gold);
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 11px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .info-btn:hover {
+      background: rgba(0,0,0,0.5);
+    }
+
+    .card-bottom {
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+    }
+
+    /* 3 Thrill Boxes Grid */
+    .thrill-boxes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 850px) {
+      .thrill-boxes-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .thrill-box {
+      background: var(--bg-surface);
+      border: 2px solid rgba(255, 210, 63, 0.6);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 440px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      transition: all 0.2s;
+    }
+
+    .thrill-box.drag-over {
+      border-color: var(--gold);
+      box-shadow: 0 0 18px rgba(255, 210, 63, 0.5);
+      transform: scale(1.01);
+    }
+
+    .thrill-box-banner {
+      height: 90px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    .thrill-box-banner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(16,24,32,0.95), transparent 80%);
+    }
+
+    .thrill-box-banner-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+    }
+
+    .box-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFF;
+      text-shadow: 0 2px 4px #000;
+    }
+
+    .box-sub {
+      font-size: 10px;
+      color: #E2E8F0;
+    }
+
+    .capacity-badge {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 900;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .box-specs-bar {
+      padding: 6px 12px;
+      background: rgba(16,24,32,0.6);
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,210,63,0.15);
+    }
+
+    .box-slots {
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .slot-placeholder {
+      border: 2px dashed rgba(255, 210, 63, 0.3);
+      background: rgba(16,24,32,0.25);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      font-size: 11px;
+      color: #64748B;
+      font-weight: 700;
+    }
+
+    /* Modal Dossier */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--bg-surface);
+      border: 3px solid var(--gold);
+      border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid rgba(255,210,63,0.3);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #FFF;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .modal-cell {
+      background: #101820;
+      border: 1px solid rgba(255,210,63,0.3);
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    .modal-cell-label {
+      font-size: 9px;
+      color: #94A3B8;
+      text-transform: uppercase;
+      font-weight: 800;
+      display: block;
+    }
+
+    .modal-cell-val {
+      font-size: 13px;
+      font-weight: 900;
+      color: #FFF;
+      margin-top: 2px;
+      display: block;
+    }
+
+    .modal-fact {
+      background: #101820;
+      border: 1px solid rgba(255,210,63,0.3);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 12px;
+      color: #E2E8F0;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 2px solid var(--gold);
+      background: #101820;
+      padding: 16px 24px;
+      font-size: 11px;
+      color: #94A3B8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🎢</div>
+      <div>
+        <div class="brand-title font-display">Roller Coaster Thrill Levels</div>
+        <div class="brand-sub">Theme Park Drag & Drop Quiz</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-dark" onclick="toggleAudio()">
+        <span id="soundIcon">🔊</span> Sound FX
+      </button>
+      <button class="btn btn-gold" onclick="openSaveModal()">
+        💾 Save Nodes
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="hero-tag font-display">Theme Park Physics & Engineering</div>
+        <h1 class="font-display">Sort the World's Most Iconic Roller Coasters</h1>
+        <p>
+          Drag-n-drop each roller coaster into the correct thrill category. Each box can contain only 
+          <strong>3 items</strong>. Can you classify all 9 coasters?
+        </p>
+      </div>
+      <div class="scoreboard">
+        <div class="score-item">
+          <span class="score-label">Placed</span>
+          <span class="score-value" id="placedVal">0 / 9</span>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Correct</span>
+          <span class="score-value score-correct" id="correctVal">0 / 9</span>
+        </div>
+        <div>
+          <button class="btn btn-dark" style="padding: 6px 10px; margin-bottom: 4px;" onclick="resetBoard()">Reset</button>
+          <button class="btn btn-dark" style="padding: 6px 10px;" onclick="shuffleQueue()">Shuffle</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Playing Area -->
+  <main>
+    <!-- Available Coasters Queue -->
+    <section class="queue-section" id="queueSec" ondragover="allowDrop(event, 'allItems')" ondragleave="clearDrag(event, 'allItems')" ondrop="dropCoaster(event, 'allItems')">
+      <div class="queue-header">
+        <div>
+          <h2 class="font-display">Coasters Queue (<span id="queueCount">9</span> remaining)</h2>
+          <span style="font-size: 11px; color: #94A3B8;">Drag cards into Low, Medium, or High Thrill boxes below</span>
+        </div>
+        <button class="btn btn-dark" onclick="shuffleQueue()">🔀 Shuffle</button>
+      </div>
+      <div class="queue-grid" id="allItems">
+        <!-- Rendered by JavaScript dynamically -->
+      </div>
+    </section>
+
+    <!-- 3 Thrill Target Boxes -->
+    <section class="thrill-boxes-grid">
+      
+      <!-- Box 1: Low Thrill -->
+      <div class="thrill-box" id="box1Container" ondragover="allowDrop(event, 'box1')" ondragleave="clearDrag(event, 'box1')" ondrop="dropCoaster(event, 'box1')">
+        <div class="thrill-box-banner" style="background: linear-gradient(135deg, #064e3b, #047857);">
+          <div class="thrill-box-banner-content">
+            <div>
+              <div class="box-title font-display">Low Thrill</div>
+              <div class="box-sub">Family & Scenic Adventures</div>
+            </div>
+            <div class="capacity-badge" id="box1Badge">0 / 3</div>
+          </div>
+        </div>
+        <div class="box-specs-bar">
+          <span>Speed: 30–40 mph</span>
+          <span>Drops: Under 50 ft</span>
+        </div>
+        <div class="box-slots" id="box1"></div>
+      </div>
+
+      <!-- Box 2: Medium Thrill -->
+      <div class="thrill-box" id="box2Container" ondragover="allowDrop(event, 'box2')" ondragleave="clearDrag(event, 'box2')" ondrop="dropCoaster(event, 'box2')">
+        <div class="thrill-box-banner" style="background: linear-gradient(135deg, #78350f, #b45309);">
+          <div class="thrill-box-banner-content">
+            <div>
+              <div class="box-title font-display">Medium Thrill</div>
+              <div class="box-sub">Moderate Speed & Drops</div>
+            </div>
+            <div class="capacity-badge" id="box2Badge">0 / 3</div>
+          </div>
+        </div>
+        <div class="box-specs-bar">
+          <span>Speed: 45–65 mph</span>
+          <span>Drops: 60–130 ft</span>
+        </div>
+        <div class="box-slots" id="box2"></div>
+      </div>
+
+      <!-- Box 3: High Thrill -->
+      <div class="thrill-box" id="box3Container" ondragover="allowDrop(event, 'box3')" ondragleave="clearDrag(event, 'box3')" ondrop="dropCoaster(event, 'box3')">
+        <div class="thrill-box-banner" style="background: linear-gradient(135deg, #881337, #be123c);">
+          <div class="thrill-box-banner-content">
+            <div>
+              <div class="box-title font-display">High Thrill</div>
+              <div class="box-sub">Extreme Speed & G-Forces</div>
+            </div>
+            <div class="capacity-badge" id="box3Badge">0 / 3</div>
+          </div>
+        </div>
+        <div class="box-specs-bar">
+          <span>Speed: 70–120+ mph</span>
+          <span>Drops: 140–400+ ft</span>
+        </div>
+        <div class="box-slots" id="box3"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Spec Dossier Modal -->
+  <div class="modal-backdrop" id="specModal" onclick="closeModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <span style="font-size: 10px; color: var(--gold); font-family: monospace; font-weight: 800;" id="mId">ID</span>
+          <h3 class="font-display" style="font-size: 22px; color: #FFF;" id="mName">Coaster Name</h3>
+          <p style="font-size: 11px; color: #94A3B8;" id="mPark">Park & Location</p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-grid">
+        <div class="modal-cell">
+          <span class="modal-cell-label">Max Speed</span>
+          <span class="modal-cell-val" id="mSpeed">0 mph</span>
+        </div>
+        <div class="modal-cell">
+          <span class="modal-cell-label">Drop Height</span>
+          <span class="modal-cell-val" id="mDrop">0 ft</span>
+        </div>
+        <div class="modal-cell">
+          <span class="modal-cell-label">Coaster Type</span>
+          <span class="modal-cell-val" id="mType">Type</span>
+        </div>
+        <div class="modal-cell">
+          <span class="modal-cell-label">Manufacturer</span>
+          <span class="modal-cell-val" id="mMaker">Maker</span>
+        </div>
+      </div>
+      <div class="modal-fact" id="mFact">Fun Fact</div>
+      <div style="margin-top: 14px; text-align: right;">
+        <button class="btn btn-gold" onclick="closeModal()">Close Dossier</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Save Nodes Modal -->
+  <div class="modal-backdrop" id="saveModal" onclick="closeSaveModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 class="font-display" style="font-size: 20px; color: var(--gold);">Saved Drag-and-Drop Nodes</h3>
+        <button class="modal-close" onclick="closeSaveModal()">✕</button>
+      </div>
+      <p style="font-size: 11px; color: #94A3B8; margin-bottom: 8px;">
+        Format: <code style="color: var(--gold);">ID of ul | ID of li ;</code>
+      </p>
+      <div id="saveCodeBox" style="background: #101820; border: 1px solid var(--gold); padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px; color: #FFF; word-break: break-all; max-height: 140px; overflow-y: auto;"></div>
+      <div style="margin-top: 14px; display: flex; justify-content: flex-end; gap: 8px;">
+        <button class="btn btn-dark" onclick="copySaveCode()">Copy String</button>
+        <button class="btn btn-gold" onclick="closeSaveModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span>Roller Coaster Thrill Levels · Interactive Drag-and-Drop</span>
+    <span>Capacity: Exactly 3 coasters per box</span>
+  </footer>
+
+  <script>
+    // 9 Roller Coasters Data
+    var COASTERS = [
+      {
+        id: 'node7',
+        name: 'Big Thunder Mountain Railroad',
+        groupId: 'box2',
+        park: 'Walt Disney World - Magic Kingdom',
+        speed: '36 mph',
+        drop: '35 ft',
+        type: 'Mine Train Coaster',
+        maker: 'Arrow / Dynamic',
+        fact: 'Known as the wildest ride in the wilderness, featuring bat caves, canyon turns, and dynamite sound blasts.'
+      },
+      {
+        id: 'node15',
+        name: 'Top Thrill Two',
+        groupId: 'box3',
+        park: 'Cedar Point',
+        speed: '120 mph',
+        drop: '400 ft',
+        type: 'Triple-Launch Strata',
+        maker: 'Zamperla / Intamin',
+        fact: 'Features a 420-foot vertical rollback spike and a 120-mph linear motor launch over the iconic top-hat tower.'
+      },
+      {
+        id: 'node19',
+        name: "Cobra's Curse",
+        groupId: 'box1',
+        park: 'Busch Gardens Tampa',
+        speed: '40 mph',
+        drop: '70 ft',
+        type: 'Spinning Family Coaster',
+        maker: 'Mack Rides',
+        fact: 'Features a vertical elevator lift bringing riders face-to-face with an 80-foot snake statue before backwards spinning.'
+      },
+      {
+        id: 'node9',
+        name: 'Slinky Dog Dash',
+        groupId: 'box1',
+        park: "Disney's Hollywood Studios",
+        speed: '40 mph',
+        drop: '25 ft',
+        type: 'Family Multi-Launch',
+        maker: 'Mack Rides',
+        fact: 'Built with spring-shaped train shells that playfully stretch and bounce across Andy\'s toy kit.'
+      },
+      {
+        id: 'node10',
+        name: 'Cheetah Hunt',
+        groupId: 'box2',
+        park: 'Busch Gardens Tampa',
+        speed: '60 mph',
+        drop: '130 ft',
+        type: 'Multi-Launch Steel Coaster',
+        maker: 'Intamin',
+        fact: 'Mimics the leaping agility of a cheetah with 3 launches and a graceful heartline roll over scenic waterways.'
+      },
+      {
+        id: 'node8',
+        name: 'VelociCoaster',
+        groupId: 'box3',
+        park: "Universal's Islands of Adventure",
+        speed: '70 mph',
+        drop: '140 ft',
+        type: 'Intamin Multi-Launch',
+        maker: 'Intamin',
+        fact: 'Hurls riders into the Jurassic World raptor paddock with an intense 100-foot zero-G stall and 360-degree barrel roll.'
+      },
+      {
+        id: 'node3',
+        name: 'Expedition Everest',
+        groupId: 'box2',
+        park: "Disney's Animal Kingdom",
+        speed: '50 mph',
+        drop: '80 ft',
+        type: 'Themed Forward/Backward',
+        maker: 'Vekoma',
+        fact: 'Tallest structure at Disney World. Features broken tracks torn apart by the Yeti and dark backward spiraling drops.'
+      },
+      {
+        id: 'node2',
+        name: 'Millennium Force',
+        groupId: 'box3',
+        park: 'Cedar Point',
+        speed: '93 mph',
+        drop: '300 ft',
+        type: 'Giga Coaster',
+        maker: 'Intamin',
+        fact: 'The world\'s first complete-circuit giga coaster, dropping riders down an 80-degree plunge right along Lake Erie.'
+      },
+      {
+        id: 'node16',
+        name: 'Seven Dwarfs Mine Train',
+        groupId: 'box1',
+        park: 'Walt Disney World - Magic Kingdom',
+        speed: '34 mph',
+        drop: '39 ft',
+        type: 'Swinging Family Mine Coaster',
+        maker: 'Vekoma',
+        fact: 'First-of-its-kind cradle vehicle that rocks back and forth independently with every turn inside the glowing jewel cave.'
+      }
+    ];
+
+    var soundActive = true;
+    var state = {
+      allItems: COASTERS.map(c => c.id),
+      box1: [],
+      box2: [],
+      box3: []
+    };
+
+    function playTone(type) {
+      if (!soundActive) return;
+      try {
+        var AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        var ctx = new AudioContext();
+
+        if (type === 'lift') {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(600, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(250, ctx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.07);
+        } else if (type === 'correct') {
+          [523.25, 659.25, 783.99].forEach((f, i) => {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+            osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.07);
+            gain.gain.setValueAtTime(0.1, ctx.currentTime + i * 0.07);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.07 + 0.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(ctx.currentTime + i * 0.07);
+            osc.stop(ctx.currentTime + i * 0.07 + 0.22);
+          });
+        } else if (type === 'wrong') {
+          var osc = ctx.createOscillator();
+          var gain = ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(150, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.23);
+        }
+      } catch (e) {}
+    }
+
+    function toggleAudio() {
+      soundActive = !soundActive;
+      document.getElementById('soundIcon').innerText = soundActive ? '🔊' : '🔇';
+    }
+
+    function render() {
+      var coasterMap = {};
+      COASTERS.forEach(c => { coasterMap[c.id] = c; });
+
+      // Render Queue
+      var qEl = document.getElementById('allItems');
+      qEl.innerHTML = '';
+      document.getElementById('queueCount').innerText = state.allItems.length;
+
+      state.allItems.forEach(id => {
+        var c = coasterMap[id];
+        var card = createCard(c, 'allItems');
+        qEl.appendChild(card);
+      });
+
+      // Render 3 boxes
+      ['box1', 'box2', 'box3'].forEach(bId => {
+        var bEl = document.getElementById(bId);
+        bEl.innerHTML = '';
+        var ids = state[bId];
+        document.getElementById(bId + 'Badge').innerText = ids.length + ' / 3';
+
+        ids.forEach(id => {
+          var c = coasterMap[id];
+          var card = createCard(c, bId);
+          bEl.appendChild(card);
+        });
+
+        // Placeholders up to 3
+        for (var i = ids.length; i < 3; i++) {
+          var ph = document.createElement('div');
+          ph.className = 'slot-placeholder';
+          ph.innerText = 'Slot ' + (i + 1) + ' Open';
+          bEl.appendChild(ph);
+        }
+      });
+
+      // Update counters
+      var placed = state.box1.length + state.box2.length + state.box3.length;
+      var correct = 0;
+      ['box1', 'box2', 'box3'].forEach(bId => {
+        state[bId].forEach(id => {
+          if (coasterMap[id].groupId === bId) correct++;
+        });
+      });
+
+      document.getElementById('placedVal').innerText = placed + ' / 9';
+      document.getElementById('correctVal').innerText = correct + ' / 9';
+
+      if (placed === 9 && correct === 9) {
+        setTimeout(function() {
+          alert('🎢 Congratulations! Everything is correct! All 9 coasters classified!');
+        }, 150);
+      }
+    }
+
+    function createCard(c, currentBox) {
+      var div = document.createElement('div');
+      div.className = 'coaster-card';
+      div.id = c.id;
+      div.draggable = true;
+      div.ondragstart = function(e) {
+        e.dataTransfer.setData('text/plain', c.id);
+        playTone('lift');
+      };
+
+      if (currentBox !== 'allItems') {
+        if (c.groupId === currentBox) {
+          div.classList.add('correctAnswer');
+        } else {
+          div.classList.add('wrongAnswer');
+        }
+      }
+
+      var statusText = '';
+      if (currentBox !== 'allItems') {
+        statusText = c.groupId === currentBox ? ' ✓ Correct' : ' ✕ Wrong';
+      }
+
+      div.innerHTML = `
+        <div class="card-top">
+          <div style="flex: 1; min-width: 0;">
+            <div class="card-meta">${c.id} · ${c.type.split(' ')[0]} ${statusText}</div>
+            <div class="card-title">${c.name}</div>
+            <div class="card-park">${c.park}</div>
+          </div>
+          <button class="info-btn" onclick="openSpec(event, '${c.id}')" title="Inspect Specs">ℹ</button>
+        </div>
+        <div class="card-bottom">
+          <span>⚡ ${c.speed}</span>
+          <span>Drop: ${c.drop}</span>
+        </div>
+      `;
+      return div;
+    }
+
+    function allowDrop(e, boxId) {
+      e.preventDefault();
+      var el = document.getElementById(boxId === 'allItems' ? 'queueSec' : boxId + 'Container');
+      if (el) el.classList.add('drag-over');
+    }
+
+    function clearDrag(e, boxId) {
+      var el = document.getElementById(boxId === 'allItems' ? 'queueSec' : boxId + 'Container');
+      if (el) el.classList.remove('drag-over');
+    }
+
+    function dropCoaster(e, targetBox) {
+      e.preventDefault();
+      clearDrag(e, targetBox);
+      var coasterId = e.dataTransfer.getData('text/plain');
+      if (!coasterId) return;
+
+      var currentBox = null;
+      ['allItems', 'box1', 'box2', 'box3'].forEach(b => {
+        if (state[b].indexOf(coasterId) !== -1) currentBox = b;
+      });
+
+      if (!currentBox || currentBox === targetBox) return;
+
+      // Check max 3 items
+      if (targetBox !== 'allItems' && state[targetBox].length >= 3) {
+        alert('This category is full! Each box can contain only 3 items.');
+        playTone('wrong');
+        return;
+      }
+
+      state[currentBox] = state[currentBox].filter(id => id !== coasterId);
+      state[targetBox].push(coasterId);
+
+      var coaster = COASTERS.find(c => c.id === coasterId);
+      if (targetBox === 'allItems') {
+        playTone('lift');
+      } else {
+        if (coaster.groupId === targetBox) {
+          playTone('correct');
+        } else {
+          playTone('wrong');
+        }
+      }
+
+      render();
+    }
+
+    function shuffleQueue() {
+      for (var i = state.allItems.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = state.allItems[i];
+        state.allItems[i] = state.allItems[j];
+        state.allItems[j] = temp;
+      }
+      render();
+    }
+
+    function resetBoard() {
+      state.allItems = COASTERS.map(c => c.id);
+      state.box1 = [];
+      state.box2 = [];
+      state.box3 = [];
+      shuffleQueue();
+    }
+
+    function openSpec(e, id) {
+      e.stopPropagation();
+      var c = COASTERS.find(item => item.id === id);
+      if (!c) return;
+      document.getElementById('mId').innerText = c.id;
+      document.getElementById('mName').innerText = c.name;
+      document.getElementById('mPark').innerText = c.park;
+      document.getElementById('mSpeed').innerText = c.speed;
+      document.getElementById('mDrop').innerText = c.drop;
+      document.getElementById('mType').innerText = c.type;
+      document.getElementById('mMaker').innerText = c.maker;
+      document.getElementById('mFact').innerText = c.fact;
+      document.getElementById('specModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('specModal').style.display = 'none';
+    }
+
+    function openSaveModal() {
+      var parts = [];
+      ['box1', 'box2', 'box3'].forEach(b => {
+        state[b].forEach(id => {
+          parts.push(b + '|' + id);
+        });
+      });
+      var str = parts.join(';');
+      document.getElementById('saveCodeBox').innerText = str || '(No coasters placed yet)';
+      document.getElementById('saveModal').style.display = 'flex';
+    }
+
+    function closeSaveModal() {
+      document.getElementById('saveModal').style.display = 'none';
+    }
+
+    function copySaveCode() {
+      var text = document.getElementById('saveCodeBox').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Copied node string to clipboard!');
+    }
+
+    window.onload = function() {
+      shuffleQueue();
+    };
+  </script>
+</body>
+</html>
